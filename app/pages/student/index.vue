@@ -1,78 +1,45 @@
 <template>
-  <div class="w-full">
+  <div class="w-full font-['Prompt']">
     
-    <div v-if="isApproved" class="bg-white rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-[40px] max-w-[800px] mx-auto my-[40px]">
-      <div class="text-center mb-[40px]">
-        <h3 class="font-bold text-[24px] mb-1 text-[#212529]">สถานะการดำเนินงาน</h3>
-        <p class="text-[#6c757d]">ติดตามความคืบหน้าบัณฑิตนิพนธ์</p>
+    <div v-if="isApproved" class="bg-white rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-8 md:p-12 max-w-[850px] mx-auto my-10">
+      <div class="text-center mb-12 border-b border-gray-100 pb-8">
+        <h3 class="font-bold text-[28px] text-[#1a1a40] mb-2">สถานะการดำเนินงาน</h3>
+        <p class="text-gray-500 text-sm">ติดตามความคืบหน้าโครงงานคอมพิวเตอร์ของคุณ</p>
       </div>
 
-      <div class="flex items-center relative pb-[40px]">
-        <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 border-[#0d6efd] bg-[#0d6efd] text-white z-10 shrink-0">1</div>
-        <div class="absolute left-[24px] top-[50px] bottom-0 w-[2px] bg-[#0d6efd]"></div>
-        <div class="flex-grow ml-[25px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="font-semibold text-[16px] text-[#212529]">ยื่นขอสอบหัวข้อ (CP1)</div>
-          <div class="flex items-center">
-            <div class="text-[14px] font-semibold mr-[20px] text-[#0d6efd]">กำลังดำเนินการ</div>
-            <NuxtLink to="/cp1" class="w-[40px] h-[40px] rounded-full border border-[#0d6efd] bg-white flex items-center justify-center text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white transition-colors duration-200 shadow-sm">
-              <i class="bi bi-pencil-square"></i>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
+      <div class="relative pl-2 md:pl-6">
+        <div v-for="(step, index) in steps" :key="step.id" class="flex items-center relative pb-12 last:pb-0 group">
+          
+          <div v-if="index !== steps.length - 1" class="absolute left-[24px] top-[50px] bottom-[-10px] w-[2px] transition-colors duration-300 z-0" :class="step.isCompleted ? 'bg-blue-600' : 'bg-gray-200 group-hover:bg-gray-300'"></div>
 
-      <div class="flex items-center relative pb-[40px]">
-        <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 border-[#0d6efd] bg-[#0d6efd] text-white z-10 shrink-0">2</div>
-        <div class="absolute left-[24px] top-[50px] bottom-0 w-[2px] bg-[#0d6efd]"></div>
-        <div class="flex-grow ml-[25px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="font-semibold text-[16px] text-[#212529]">พัฒนาโปรแกรม</div>
-          <div class="flex items-center">
-            <div class="text-[14px] font-semibold mr-[20px] text-[#0d6efd]">กำลังดำเนินการ</div>
-            <NuxtLink to="/progress" class="w-[40px] h-[40px] rounded-full border border-[#0d6efd] bg-white flex items-center justify-center text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white transition-colors duration-200 shadow-sm">
-              <i class="bi bi-plus-lg"></i>
-            </NuxtLink>
+          <div 
+            class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 z-10 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm"
+            :class="step.isLocked ? 'border-gray-200 bg-gray-50 text-gray-400' : (step.isCompleted ? 'border-blue-600 bg-blue-600 text-white' : 'border-[#1a1a40] bg-[#1a1a40] text-white')"
+          >
+            <i v-if="step.isCompleted" class="bi bi-check-lg text-[24px]"></i>
+            <span v-else>{{ step.id }}</span>
           </div>
-        </div>
-      </div>
 
-      <div class="flex items-center relative pb-[40px]">
-        <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 border-[#0d6efd] bg-[#0d6efd] text-white z-10 shrink-0">3</div>
-        <div class="absolute left-[24px] top-[50px] bottom-0 w-[2px] bg-[#0d6efd]"></div>
-        <div class="flex-grow ml-[25px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="font-semibold text-[16px] text-[#212529]">เล่มบัณฑิตนิพนธ์</div>
-          <div class="flex items-center">
-            <div class="text-[14px] font-semibold mr-[20px] text-[#0d6efd]">กำลังดำเนินการ</div>
-            <NuxtLink to="/thesis" class="w-[40px] h-[40px] rounded-full border border-[#0d6efd] bg-white flex items-center justify-center text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white transition-colors duration-200 shadow-sm">
-              <i class="bi bi-plus-lg"></i>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
+          <div class="flex-grow ml-6 md:ml-8 flex flex-col md:flex-row md:items-center justify-between mt-1 md:mt-0 bg-gray-50 md:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none">
+            <div class="font-bold text-lg mb-3 md:mb-0" :class="step.isLocked ? 'text-gray-400' : 'text-[#1a1a40]'">
+              {{ step.title }}
+            </div>
+            
+            <div class="flex flex-row items-center justify-between md:justify-end gap-4 md:gap-6">
+              <div class="text-[14px] md:text-[15px] font-medium min-w-[140px] md:text-right" :class="step.statusColor">
+                {{ step.statusText }}
+              </div>
+              
+              <div v-if="step.isLocked" class="w-[42px] h-[42px] rounded-full border-2 border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400 shadow-sm cursor-not-allowed">
+                <i class="bi bi-lock-fill text-lg"></i>
+              </div>
 
-      <div class="flex items-center relative pb-[40px]">
-        <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 border-[#0d6efd] bg-white text-[#0d6efd] z-10 shrink-0">4</div>
-        <div class="absolute left-[24px] top-[50px] bottom-0 w-[2px] bg-[#e9ecef]"></div>
-        <div class="flex-grow ml-[25px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="font-semibold text-[16px] text-[#212529]">ยื่นขอสอบจบ (CP2)</div>
-          <div class="flex items-center">
-            <div class="text-[14px] font-semibold mr-[20px] text-[#0d6efd]">คลิกเพื่อยื่นขอสอบ</div>
-            <NuxtLink to="/cp2" class="w-[40px] h-[40px] rounded-full border border-[#0d6efd] bg-white flex items-center justify-center text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white transition-colors duration-200 shadow-sm">
-              <i class="bi bi-plus-lg"></i>
-            </NuxtLink>
+              <NuxtLink v-else :to="step.link" class="w-[42px] h-[42px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm" :class="step.isCompleted ? 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white' : 'border-[#1a1a40] text-[#1a1a40] hover:bg-[#1a1a40] hover:text-white'">
+                <i class="bi text-lg" :class="step.icon"></i>
+              </NuxtLink>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="flex items-center relative">
-        <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 border-[#0d6efd] bg-white text-[#0d6efd] z-10 shrink-0">5</div>
-        <div class="flex-grow ml-[25px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="font-semibold text-[16px] text-[#212529]">ส่งเล่มและโปรแกรม</div>
-          <div class="flex items-center">
-            <div class="text-[14px] font-semibold mr-[20px] text-[#0d6efd]">คลิกเพื่อส่งงาน</div>
-            <NuxtLink to="/final-submit" class="w-[40px] h-[40px] rounded-full border border-[#0d6efd] bg-white flex items-center justify-center text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white transition-colors duration-200 shadow-sm">
-              <i class="bi bi-plus-lg"></i>
-            </NuxtLink>
-          </div>
         </div>
       </div>
     </div>
@@ -86,34 +53,77 @@
         บัญชีของคุณกำลังรอการตรวจสอบจากแอดมิน<br>
         เมื่อได้รับการอนุมัติแล้ว คุณถึงจะสามารถเริ่มต้นยื่นเสนอหัวข้อและทำโครงงานได้ครับ
       </p>
-      
-      <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
-        
-        <NuxtLink to="/procedures" class="border-2 border-[#1a1a40] text-[#1a1a40] px-6 py-3 rounded-full hover:bg-[#1a1a40] hover:text-white transition-colors font-medium flex items-center justify-center gap-2">
-          <i class="bi bi-diagram-3"></i> ขั้นตอนการทำโครงงาน
-        </NuxtLink>
-
-        <NuxtLink to="/senior-projects" class="border-2 border-[#1a1a40] text-[#1a1a40] px-6 py-3 rounded-full hover:bg-[#1a1a40] hover:text-white transition-colors font-medium flex items-center justify-center gap-2">
-          <i class="bi bi-search"></i> ดูโครงงานรุ่นพี่
-        </NuxtLink>
-
-        <a href="/thesis_manual.pdf" target="_blank" class="border-2 border-[#1a1a40] text-[#1a1a40] px-6 py-3 rounded-full hover:bg-[#1a1a40] hover:text-white transition-colors font-medium flex items-center justify-center gap-2">
-          <i class="bi bi-book"></i> อ่านคู่มือทำเล่ม
-        </a>
-        
-      </div>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 useHead({
-  title: 'หน้าหลัก'
+  title: 'สถานะการดำเนินงาน | โครงงานของฉัน'
 })
 
-// ตัวแปรจำลองสถานะ: เปลี่ยนเป็น true หน้าเว็บจะเปลี่ยนเป็น Timeline ทันที
-const isApproved = ref(false) 
+// ================= เปิดให้ผ่านทุกด่านเพื่อทดสอบ UI =================
+const isApproved = ref(true) // อนุมัติแล้ว
+const isCp1Passed = ref(true) // ผ่าน CP1 แล้ว
+const isProgressAndThesisPassed = ref(true) // ผ่านพัฒนาโปรแกรมและเล่มแล้ว
+const isCp2Passed = ref(true) // ผ่าน CP2 แล้ว
+
+// ================= คำนวณสถานะ 5 ขั้นตอน =================
+const steps = computed(() => [
+  {
+    id: 1,
+    title: 'ยื่นขอสอบหัวข้อ (CP1)',
+    statusText: isCp1Passed.value ? 'สอบผ่านแล้ว' : 'กำลังดำเนินการ',
+    statusColor: isCp1Passed.value ? 'text-green-600' : 'text-[#1a1a40]',
+    icon: isCp1Passed.value ? 'bi-eye-fill' : 'bi-pencil-square',
+    link: '/student/cp1',
+    isLocked: false, 
+    isCompleted: isCp1Passed.value
+  },
+  {
+    id: 2,
+    title: 'พัฒนาโปรแกรม',
+    statusText: isCp1Passed.value ? (isProgressAndThesisPassed.value ? 'ตรวจแล้ว' : 'กำลังดำเนินการ') : 'รอผ่าน CP1',
+    statusColor: isCp1Passed.value ? (isProgressAndThesisPassed.value ? 'text-green-600' : 'text-blue-600') : 'text-gray-400',
+    icon: isProgressAndThesisPassed.value ? 'bi-eye-fill' : 'bi-plus-lg',
+    link: '/student/progress',
+    isLocked: !isCp1Passed.value,
+    isCompleted: isProgressAndThesisPassed.value
+  },
+  {
+    id: 3,
+    title: 'เล่มบัณฑิตนิพนธ์',
+    statusText: isCp1Passed.value ? (isProgressAndThesisPassed.value ? 'ตรวจแล้ว' : 'กำลังดำเนินการ') : 'รอผ่าน CP1',
+    statusColor: isCp1Passed.value ? (isProgressAndThesisPassed.value ? 'text-green-600' : 'text-blue-600') : 'text-gray-400',
+    icon: isProgressAndThesisPassed.value ? 'bi-eye-fill' : 'bi-plus-lg',
+    link: '/student/thesis',
+    isLocked: !isCp1Passed.value,
+    isCompleted: isProgressAndThesisPassed.value
+  },
+
+   {
+    id: 4,
+    title: 'ยื่นขอสอบจบ (CP2, CP3)', // เติมชื่อ CP3 เข้าไปให้ชัดเจน
+    statusText: isProgressAndThesisPassed.value ? (isCp2Passed.value ? 'สอบผ่านแล้ว' : 'คลิกเพื่อจัดการเอกสาร') : 'รอผ่านขั้นตอนที่ 2 และ 3',
+    statusColor: isProgressAndThesisPassed.value ? (isCp2Passed.value ? 'text-green-600' : 'text-blue-600') : 'text-gray-400',
+    icon: isCp2Passed.value ? 'bi-eye-fill' : 'bi-folder2-open', // เปลี่ยนไอคอนเป็นรูปโฟลเดอร์
+    link: '/student/exam-request', // เปลี่ยนลิงก์มาที่หน้าศูนย์รวม
+    isLocked: !isProgressAndThesisPassed.value,
+    isCompleted: isCp2Passed.value
+  },
+
+  {
+    id: 5,
+    title: 'ส่งเล่มและโปรแกรม',
+    statusText: isCp2Passed.value ? 'กำลังดำเนินการ' : 'รอผ่านสอบจบ (CP2)',
+    statusColor: isCp2Passed.value ? 'text-blue-600' : 'text-gray-400',
+    icon: 'bi-plus-lg',
+    link: '/student/final-submit',
+    isLocked: !isCp2Passed.value,
+    isCompleted: false // ข้อ 5 คือขั้นตอนสุดท้าย เปิดให้กดเข้าไปส่งงานได้ตลอด
+  }
+])
 </script>

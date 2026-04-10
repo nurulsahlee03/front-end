@@ -49,9 +49,10 @@
               <span class="text-[0.95rem] font-medium">นางสาวตัวอย่าง ใจดี</span>
             </NuxtLink>
 
-            <NuxtLink to="/login" class="flex items-center gap-2 text-white border border-white/30 hover:bg-[#dc3545] hover:border-[#dc3545] px-[20px] py-[8px] rounded-full text-[0.9rem] font-medium transition-colors duration-300 w-fit">
+            <button @click="handleLogout" class="flex items-center gap-2 text-white border border-white/30 hover:bg-[#dc3545] hover:border-[#dc3545] px-[20px] py-[8px] rounded-full text-[0.9rem] font-medium transition-colors duration-300 w-fit cursor-pointer">
               <i class="bi bi-box-arrow-right"></i> Logout
-            </NuxtLink>
+            </button>
+
           </div>
 
         </div>
@@ -112,10 +113,25 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router"; // ดึง useRouter มาใช้สำหรับเปลี่ยนหน้า
 
-// รวมตัวแปรทั้งหมดไว้ก้อนเดียว
+const router = useRouter(); // ประกาศใช้งาน router
 const isMenuOpen = ref(false);
 const isApproved = ref(true);
+
+// 🌟 ฟังก์ชันจัดการตอนกดปุ่มออกจากระบบ 🌟
+const handleLogout = () => {
+  // มีกล่องยืนยันเด้งขึ้นมาถามก่อน
+  if (confirm("คุณต้องการออกจากระบบใช่หรือไม่?")) {
+    
+    // TODO: [สำหรับเพื่อนทำ Backend] 
+    // เขียนโค้ดล้าง Session, ล้าง Token ใน localStorage หรือยิง API Logout ตรงนี้ได้เลย
+    // ตัวอย่าง: localStorage.removeItem('user_token');
+
+    // พอล้างข้อมูลเสร็จ ก็เตะกลับไปหน้า Login
+    router.push('/login');
+  }
+};
 
 useHead({
   titleTemplate: "%s | BSRU Computer Project",

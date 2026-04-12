@@ -119,13 +119,14 @@
     </div>
 
     <div v-if="showResultModal" class="fixed inset-0 z-[101] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-[fadeIn_0.2s_ease-in-out]">
-      <div class="bg-white w-full max-w-[500px] rounded-[28px] p-6 md:p-8 shadow-2xl relative" @click.stop>
-        <button @click="showResultModal = false" class="absolute top-4 right-4 text-slate-300 hover:text-rose-500 text-2xl transition-colors">
-          <i class="bi bi-x-circle-fill"></i>
+      <div class="bg-white w-full max-w-[520px] rounded-[28px] p-6 md:p-8 shadow-2xl relative" @click.stop>
+        <button @click="showResultModal = false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors">
+          <i class="bi bi-x-lg"></i>
         </button>
         <h3 class="font-bold text-2xl text-center text-slate-900 mb-6">บันทึกผลการสอบหัวข้อ (CP1)</h3>
 
-        <form @submit.prevent="saveResult" class="space-y-5">
+        <form @submit.prevent="saveResult" class="space-y-4">
+          
           <div class="flex flex-col gap-2">
             <label class="font-bold text-slate-700 text-sm">ผลการสอบ</label>
             <div class="flex gap-3 w-full">
@@ -145,25 +146,60 @@
           </div>
 
           <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
+            <label class="font-bold text-slate-700 text-sm">อาจารย์ที่ปรึกษาหลัก</label>
+            <div class="relative">
+              <select v-model="resultForm.advisorMain" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
+                <option value="" disabled selected>-- เลือกอาจารย์ที่ปรึกษาหลัก --</option>
+                <option value="1">อ. ธีรพัฒน์ ใจดี</option>
+                <option value="2">ผศ.ดร. สมศรี มีสุข</option>
+                <option value="3">อ. มานพ ขยันสอน</option>
+              </select>
+              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
+                <i class="bi bi-chevron-down font-bold"></i>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
+            <label class="font-bold text-slate-700 text-sm">อาจารย์ที่ปรึกษาร่วม (ถ้ามี)</label>
+            <div class="relative">
+              <select v-model="resultForm.advisorCo" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
+                <option value="">-- ไม่มีอาจารย์ที่ปรึกษาร่วม --</option>
+                <option value="1">อ. ธีรพัฒน์ ใจดี</option>
+                <option value="2">ผศ.ดร. สมศรี มีสุข</option>
+                <option value="3">อ. มานพ ขยันสอน</option>
+              </select>
+              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
+                <i class="bi bi-chevron-down font-bold"></i>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
             <label class="font-bold text-slate-700 text-sm">ให้เกรด</label>
-            <select v-model="resultForm.grade" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40]">
-               <option value="A">Grade A </option>
-              <option value="B">Grade B+ </option>
-              <option value="B">Grade B </option>
-              <option value="C">Grade C </option>
-              <option value="C">Grade C+ </option>
-              <option value="D">Grade D </option>
-              <option value="D">Grade D+ </option>
-            </select>
+            <div class="relative">
+              <select v-model="resultForm.grade" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
+                <option value="A">Grade A </option>
+                <option value="B+">Grade B+ </option>
+                <option value="B">Grade B </option>
+                <option value="C+">Grade C+ </option>
+                <option value="C">Grade C </option>
+                <option value="D+">Grade D+ </option>
+                <option value="D">Grade D </option>
+              </select>
+              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
+                <i class="bi bi-chevron-down font-bold"></i>
+              </div>
+            </div>
           </div>
 
           <div class="flex flex-col gap-2">
             <label class="font-bold text-slate-700 text-sm">รายละเอียด / หมายเหตุ</label>
-            <textarea v-model="resultForm.details" rows="3" placeholder="กรอกข้อเสนอแนะ การแก้ไข หรือสาเหตุที่ไม่ผ่าน..." class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 outline-none focus:bg-white focus:border-[#1a1a40] transition-all text-sm text-slate-700"></textarea>
+            <textarea v-model="resultForm.details" rows="2" placeholder="กรอกข้อเสนอแนะ การแก้ไข หรือสาเหตุที่ไม่ผ่าน..." class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 outline-none focus:bg-white focus:border-[#1a1a40] transition-all text-sm text-slate-700 resize-none"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-emerald-600 text-white font-bold text-base py-3 rounded-full mt-4 shadow-md flex justify-center items-center gap-2 transition-transform hover:scale-[1.02]">
-            <i class="bi bi-cloud-check-fill"></i> ยืนยันบันทึกผลสอบหัวข้อ
+          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-[#2c2c54] text-white font-bold text-base py-3.5 rounded-xl mt-4 shadow-md flex justify-center items-center gap-2 transition-transform hover:-translate-y-0.5">
+            <i class="bi bi-cloud-arrow-up-fill"></i> ยืนยันบันทึกผลสอบหัวข้อ
           </button>
         </form>
       </div>
@@ -182,9 +218,16 @@ const showScheduleModal = ref(false)
 const showResultModal = ref(false)
 
 const scheduleForm = ref({ projectId: null, date: '', time: '', room: '' })
-const resultForm = ref({ projectId: null, status: 'pass', grade: 'A', details: '' })
+const resultForm = ref({ 
+  projectId: null, 
+  status: 'pass', 
+  advisorMain: '', 
+  advisorCo: '', 
+  grade: 'A', 
+  details: '' 
+})
 
-// Mock Data
+// ข้อมูลจำลอง (Mock Data)
 const waitList = ref([
   { id: 1, title: 'ระบบบริหารจัดการโครงงานคอมพิวเตอร์แบบครบวงจร', student: 'นางสาวตัวอย่าง ใจดี', date: '25/08/2026' },
   { id: 2, title: 'แอปพลิเคชันจองคิวคลินิกทันตกรรม', student: 'นายสมมติ นามสกุล', date: '26/08/2026' }
@@ -205,6 +248,8 @@ const openScheduleModal = (item) => {
 const openResultModal = (item) => {
   resultForm.value.projectId = item.id
   resultForm.value.status = 'pass'
+  resultForm.value.advisorMain = ''
+  resultForm.value.advisorCo = ''
   resultForm.value.grade = 'A'
   resultForm.value.details = ''
   showResultModal.value = true
@@ -215,9 +260,22 @@ const saveSchedule = () => {
   showScheduleModal.value = false
 }
 
+// 🌟 อัปเดตฟังก์ชัน Save ให้เช็คการเลือกอาจารย์เฉพาะตอนที่ผลสอบ "ผ่าน" 🌟
 const saveResult = () => {
-  const text = resultForm.value.status === 'pass' ? `ผ่าน (เกรด ${resultForm.value.grade})` : 'ไม่ผ่าน'
-  alert(`บันทึกผลสอบหัวข้อสำเร็จ: ${text}\nรายละเอียด: ${resultForm.value.details}`)
+  if (resultForm.value.status === 'pass' && !resultForm.value.advisorMain) {
+    alert('กรุณาเลือกอาจารย์ที่ปรึกษาหลัก')
+    return
+  }
+
+  let text = 'ไม่ผ่าน'
+  let advisorInfo = ''
+  
+  if (resultForm.value.status === 'pass') {
+    text = `ผ่าน (เกรด ${resultForm.value.grade})`
+    advisorInfo = `\nที่ปรึกษาหลัก: ${resultForm.value.advisorMain}${resultForm.value.advisorCo ? ', ที่ปรึกษาร่วม: ' + resultForm.value.advisorCo : ''}`
+  }
+  
+  alert(`บันทึกผลสอบหัวข้อสำเร็จ: ${text}${advisorInfo}\nรายละเอียด: ${resultForm.value.details}`)
   showResultModal.value = false
 }
 </script>
@@ -225,6 +283,10 @@ const saveResult = () => {
 <style>
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-8 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-8 font-['PROMPT',_sans-serif]">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>

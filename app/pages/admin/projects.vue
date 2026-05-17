@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-8 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-8 font-['PROMPT',_sans-serif]">
     
     <div class="mb-8">
       <h2 class="font-bold text-slate-900 text-2xl md:text-3xl mb-1">ข้อมูลโครงงานทั้งหมด</h2>
@@ -28,7 +28,7 @@
           class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm font-bold rounded-xl pl-11 pr-10 py-3 outline-none focus:border-[#1a1a40] focus:bg-white transition-all appearance-none cursor-pointer"
         >
           <option value="">ทุกปีการศึกษา</option>
-          <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+          <option v-for="year in availableYears" :key="year" :value="year">ปี {{ year }}</option>
         </select>
         <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
           <i class="bi bi-chevron-down font-bold"></i>
@@ -104,12 +104,13 @@ import { ref, computed } from 'vue'
 
 definePageMeta({ layout: 'admin' })
 
-// State สำหรับ Filter
-const searchQuery = ref('')
-const selectedYear = ref('')
-
-// Mock Data ปีการศึกษา
+// 1. นำชุดข้อมูลปีการศึกษามาประกาศไว้ก่อน
 const availableYears = ['2568', '2567', '2566', '2565']
+
+// 2. State สำหรับ Filter
+const searchQuery = ref('')
+// 🌟 เปลี่ยนค่า Default เป็นปีล่าสุดอัตโนมัติ (ดึงจาก Index 0 ของ Array) 🌟
+const selectedYear = ref(availableYears[0]) 
 
 // Mock Data โครงงานทั้งหมด
 const projects = ref([

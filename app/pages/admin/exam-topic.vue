@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-8 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-8 font-['PROMPT',_sans-serif]">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>
@@ -29,7 +29,7 @@
               <th class="pb-4 font-medium px-4">ชื่อโครงงาน</th>
               <th class="pb-4 font-medium">ผู้วิจัย</th>
               <th class="pb-4 font-medium">วันที่ยื่น</th>
-              <th class="pb-4 font-medium text-center">เอกสาร</th>
+              <th class="pb-4 font-medium text-center">เอกสาร (CP1)</th>
               <th class="pb-4 font-medium text-center">จัดการ</th>
             </tr>
           </thead>
@@ -91,114 +91,103 @@
       </div>
     </div>
 
-    <div v-if="showScheduleModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-[fadeIn_0.2s_ease-in-out]">
-      <div class="bg-white w-full max-w-[500px] rounded-[28px] p-6 md:p-8 shadow-2xl relative" @click.stop>
-        <button @click="showScheduleModal = false" class="absolute top-4 right-4 text-slate-300 hover:text-rose-500 text-2xl transition-colors">
-          <i class="bi bi-x-circle-fill"></i>
-        </button>
-        <h3 class="font-bold text-2xl text-center text-slate-900 mb-6">ระบุวันสอบหัวข้อ (CP1)</h3>
+    <div v-if="showScheduleModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fade-in">
+      <div class="bg-white w-full max-w-[700px] rounded-[32px] p-10 shadow-2xl relative" @click.stop>
         
-        <form @submit.prevent="saveSchedule" class="space-y-4">
-          <div class="flex flex-col gap-1.5">
-            <label class="font-bold text-slate-700 text-sm">วันที่</label>
-            <input type="date" v-model="scheduleForm.date" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-colors">
+        <button @click="showScheduleModal = false" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-all">
+          <i class="bi bi-x-lg text-xl"></i>
+        </button>
+
+        <h3 class="font-bold text-[28px] text-center text-slate-900 mb-10">ระบุวันสอบหัวข้อ (CP1)</h3>
+        
+        <form @submit.prevent="saveSchedule" class="space-y-6">
+          <div class="flex flex-col gap-2">
+            <label class="font-bold text-slate-700 text-lg">วันที่</label>
+            <input type="date" v-model="scheduleForm.date" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-lg rounded-2xl px-5 py-4 outline-none focus:border-[#1a1a40] transition-colors">
           </div>
-          <div class="flex flex-col gap-1.5">
-            <label class="font-bold text-slate-700 text-sm">เวลา</label>
-            <input type="text" v-model="scheduleForm.time" placeholder="เช่น 13:00 - 16:00" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-colors">
+          
+          <div class="flex flex-col gap-2">
+            <label class="font-bold text-slate-700 text-lg">เวลา</label>
+            <input type="text" v-model="scheduleForm.time" placeholder="เช่น 13:00 - 16:00" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-lg rounded-2xl px-5 py-4 outline-none focus:border-[#1a1a40] transition-colors">
           </div>
-          <div class="flex flex-col gap-1.5">
-            <label class="font-bold text-slate-700 text-sm">ห้อง</label>
-            <input type="text" v-model="scheduleForm.room" placeholder="เช่น 6125" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-colors">
+          
+          <div class="flex flex-col gap-2">
+            <label class="font-bold text-slate-700 text-lg">ห้อง</label>
+            <input type="text" v-model="scheduleForm.room" placeholder="เช่น 6125" required class="w-full bg-white border-2 border-slate-200 text-slate-700 text-lg rounded-2xl px-5 py-4 outline-none focus:border-[#1a1a40] transition-colors">
           </div>
-          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-[#2c2c54] text-white font-bold text-base py-3 rounded-full mt-6 shadow-md flex justify-center items-center gap-2 transition-transform hover:scale-[1.02]">
+          
+          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-[#2c2c54] text-white font-bold text-xl py-4 rounded-[20px] mt-8 shadow-xl flex justify-center items-center gap-3 transition-transform hover:-translate-y-1">
             <i class="bi bi-plus-circle-fill"></i> บันทึกตารางสอบหัวข้อ
           </button>
         </form>
       </div>
     </div>
 
-    <div v-if="showResultModal" class="fixed inset-0 z-[101] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-[fadeIn_0.2s_ease-in-out]">
-      <div class="bg-white w-full max-w-[520px] rounded-[28px] p-6 md:p-8 shadow-2xl relative" @click.stop>
-        <button @click="showResultModal = false" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors">
-          <i class="bi bi-x-lg"></i>
+    <div v-if="showResultModal" class="fixed inset-0 z-[101] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fade-in">
+      <div class="bg-white w-full max-w-[700px] rounded-[32px] p-10 shadow-2xl relative" @click.stop>
+        
+        <button @click="showResultModal = false" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-all">
+          <i class="bi bi-x-lg text-xl"></i>
         </button>
-        <h3 class="font-bold text-2xl text-center text-slate-900 mb-6">บันทึกผลการสอบหัวข้อ (CP1)</h3>
 
-        <form @submit.prevent="saveResult" class="space-y-4">
+        <h3 class="font-bold text-[28px] text-center text-slate-900 mb-8">บันทึกผลการสอบหัวข้อ (CP1)</h3>
+
+        <form @submit.prevent="saveResult" class="space-y-6">
           
-          <div class="flex flex-col gap-2">
-            <label class="font-bold text-slate-700 text-sm">ผลการสอบ</label>
-            <div class="flex gap-3 w-full">
+          <div class="flex flex-col gap-3">
+            <label class="font-bold text-slate-700 text-lg">ผลการสอบ</label>
+            <div class="flex gap-4 w-full">
               <label class="flex-1 cursor-pointer group">
                 <input type="radio" v-model="resultForm.status" value="pass" class="hidden peer">
-                <div class="px-4 py-2.5 rounded-xl border-2 border-slate-100 hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-600 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 text-slate-500 peer-checked:text-emerald-700 font-bold transition-all text-center text-sm">
-                  <i class="bi bi-check-circle-fill mr-1"></i> ผ่าน
+                <div class="px-5 py-4 rounded-2xl border-2 border-slate-100 hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-600 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 text-slate-500 peer-checked:text-emerald-700 font-bold transition-all text-center text-lg flex items-center justify-center gap-2">
+                  <i class="bi bi-check-circle-fill"></i> ผ่าน
                 </div>
               </label>
               <label class="flex-1 cursor-pointer group">
                 <input type="radio" v-model="resultForm.status" value="fail" class="hidden peer">
-                <div class="px-4 py-2.5 rounded-xl border-2 border-slate-100 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-600 peer-checked:border-rose-500 peer-checked:bg-rose-50 text-slate-500 peer-checked:text-rose-700 font-bold transition-all text-center text-sm">
-                  <i class="bi bi-x-circle-fill mr-1"></i> ไม่ผ่าน
+                <div class="px-5 py-4 rounded-2xl border-2 border-slate-100 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-600 peer-checked:border-rose-500 peer-checked:bg-rose-50 text-slate-500 peer-checked:text-rose-700 font-bold transition-all text-center text-lg flex items-center justify-center gap-2">
+                  <i class="bi bi-x-circle-fill"></i> ไม่ผ่าน
                 </div>
               </label>
             </div>
           </div>
 
-          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
-            <label class="font-bold text-slate-700 text-sm">อาจารย์ที่ปรึกษาหลัก</label>
+          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-fade-in">
+            <label class="font-bold text-slate-700 text-lg">อาจารย์ที่ปรึกษาหลัก</label>
             <div class="relative">
-              <select v-model="resultForm.advisorMain" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
+              <select v-model="resultForm.advisorMain" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-4 text-lg font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
                 <option value="" disabled selected>-- เลือกอาจารย์ที่ปรึกษาหลัก --</option>
                 <option value="1">อ. ธีรพัฒน์ ใจดี</option>
                 <option value="2">ผศ.ดร. สมศรี มีสุข</option>
                 <option value="3">อ. มานพ ขยันสอน</option>
               </select>
-              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
-                <i class="bi bi-chevron-down font-bold"></i>
+              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-500">
+                <i class="bi bi-chevron-down font-bold text-lg"></i>
               </div>
             </div>
           </div>
 
-          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
-            <label class="font-bold text-slate-700 text-sm">อาจารย์ที่ปรึกษาร่วม (ถ้ามี)</label>
+          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-fade-in">
+            <label class="font-bold text-slate-700 text-lg">อาจารย์ที่ปรึกษาร่วม (ถ้ามี)</label>
             <div class="relative">
-              <select v-model="resultForm.advisorCo" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
+              <select v-model="resultForm.advisorCo" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-4 text-lg font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
                 <option value="">-- ไม่มีอาจารย์ที่ปรึกษาร่วม --</option>
                 <option value="1">อ. ธีรพัฒน์ ใจดี</option>
                 <option value="2">ผศ.ดร. สมศรี มีสุข</option>
                 <option value="3">อ. มานพ ขยันสอน</option>
               </select>
-              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
-                <i class="bi bi-chevron-down font-bold"></i>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="resultForm.status === 'pass'" class="flex flex-col gap-2 animate-[fadeIn_0.2s_ease-in-out]">
-            <label class="font-bold text-slate-700 text-sm">ให้เกรด</label>
-            <div class="relative">
-              <select v-model="resultForm.grade" class="w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#1a1a40] appearance-none cursor-pointer">
-                <option value="A">Grade A </option>
-                <option value="B+">Grade B+ </option>
-                <option value="B">Grade B </option>
-                <option value="C+">Grade C+ </option>
-                <option value="C">Grade C </option>
-                <option value="D+">Grade D+ </option>
-                <option value="D">Grade D </option>
-              </select>
-              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
-                <i class="bi bi-chevron-down font-bold"></i>
+              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-500">
+                <i class="bi bi-chevron-down font-bold text-lg"></i>
               </div>
             </div>
           </div>
 
           <div class="flex flex-col gap-2">
-            <label class="font-bold text-slate-700 text-sm">รายละเอียด / หมายเหตุ</label>
-            <textarea v-model="resultForm.details" rows="2" placeholder="กรอกข้อเสนอแนะ การแก้ไข หรือสาเหตุที่ไม่ผ่าน..." class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 outline-none focus:bg-white focus:border-[#1a1a40] transition-all text-sm text-slate-700 resize-none"></textarea>
+            <label class="font-bold text-slate-700 text-lg">รายละเอียด / หมายเหตุ</label>
+            <textarea v-model="resultForm.details" rows="5" placeholder="กรอกข้อเสนอแนะ การแก้ไข หรือสาเหตุที่ไม่ผ่าน..." class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-4 outline-none focus:bg-white focus:border-[#1a1a40] transition-all text-lg text-slate-700 resize-none"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-[#2c2c54] text-white font-bold text-base py-3.5 rounded-xl mt-4 shadow-md flex justify-center items-center gap-2 transition-transform hover:-translate-y-0.5">
+          <button type="submit" class="w-full bg-[#1a1a40] hover:bg-[#2c2c54] text-white font-bold text-xl py-4 rounded-[20px] mt-6 shadow-xl flex justify-center items-center gap-3 transition-transform hover:-translate-y-1">
             <i class="bi bi-cloud-arrow-up-fill"></i> ยืนยันบันทึกผลสอบหัวข้อ
           </button>
         </form>
@@ -223,7 +212,6 @@ const resultForm = ref({
   status: 'pass', 
   advisorMain: '', 
   advisorCo: '', 
-  grade: 'A', 
   details: '' 
 })
 
@@ -250,7 +238,6 @@ const openResultModal = (item) => {
   resultForm.value.status = 'pass'
   resultForm.value.advisorMain = ''
   resultForm.value.advisorCo = ''
-  resultForm.value.grade = 'A'
   resultForm.value.details = ''
   showResultModal.value = true
 }
@@ -271,7 +258,7 @@ const saveResult = () => {
   let advisorInfo = ''
   
   if (resultForm.value.status === 'pass') {
-    text = `ผ่าน (เกรด ${resultForm.value.grade})`
+    text = `ผ่าน`
     advisorInfo = `\nที่ปรึกษาหลัก: ${resultForm.value.advisorMain}${resultForm.value.advisorCo ? ', ที่ปรึกษาร่วม: ' + resultForm.value.advisorCo : ''}`
   }
   
@@ -281,12 +268,16 @@ const saveResult = () => {
 </script>
 
 <style>
+.animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100 py-8 px-4 font-['Sarabun',_'Prompt',_sans-serif] print:bg-white print:py-0 print:px-0">
+  <div class="min-h-screen bg-gray-100 py-8 px-4 font-['Sarabun',_sans-serif] text-[16pt] print:bg-white print:py-0 print:px-0">
     
     <div class="max-w-[210mm] mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
       <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-colors font-medium bg-white px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
@@ -140,7 +140,7 @@
                   
                   <div class="flex items-end gap-1 w-full justify-center mb-6">
                     <span class="shrink-0">(</span>
-                    <input type="text" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาหลัก" class="form-dotted w-[220px] min-w-0 text-center bg-transparent text-gray-600 print:placeholder-transparent">
+                    <input type="text" class="form-dotted w-[220px] min-w-0 text-center bg-transparent text-gray-600 print:placeholder-transparent">
                     <span class="shrink-0">)</span>
                   </div>
 

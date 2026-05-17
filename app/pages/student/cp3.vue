@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100 py-8 px-4 font-['Sarabun',_'Prompt',_sans-serif] print:bg-white print:p-0">
+  <div class="min-h-screen bg-gray-100 py-8 px-4 font-['Sarabun',_sans-serif] text-[16px] print:bg-white print:p-0">
     
     <div class="max-w-[210mm] mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
       <NuxtLink to="/student/exam-request" class="flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-colors font-medium bg-white px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
@@ -194,7 +194,7 @@
                 </div>
                 <div class="flex items-end w-full">
                   <span class="whitespace-nowrap">(</span>
-                  <input type="text" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาหลัก" class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
+                  <input type="text"  class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
                   <span class="whitespace-nowrap">)</span>
                 </div>
               </div>
@@ -207,7 +207,7 @@
                 </div>
                 <div class="flex items-end w-full">
                   <span class="whitespace-nowrap">(</span>
-                  <input type="text" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาร่วม" class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
+                  <input type="text"  class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
                   <span class="whitespace-nowrap">)</span>
                 </div>
               </div>
@@ -354,17 +354,17 @@ useHead({
 })
 
 const form = reactive({
-  semester: '2',
-  academicYear: '2568',
+  semester: '',
+  academicYear: '',
   projectTitleTh: ''
 })
 
 const s1 = reactive({
-  name: 'คุณหนูเต้ย', 
-  studentId: '6611223344',
+  name: '', 
+  studentId: '',
   addressNo: '', moo: '', soi: '', road: '',
   subdistrict: '', district: '', province: '', zipcode: '',
-  phone: '081-234-5678', email: 'example@bsru.ac.th',
+  phone: '', email: '',
   lineId: '', homePhone: '', emergencyContact: ''
 })
 
@@ -378,8 +378,8 @@ const s2 = reactive({
 
 const clearForm = () => {
   if (confirm('คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลที่กรอกไปแล้วทั้งหมด?')) {
-    form.semester = '2'
-    form.academicYear = '2568'
+    form.semester = ''
+    form.academicYear = ''
     form.projectTitleTh = ''
     s1.addressNo = ''
     s1.moo = ''

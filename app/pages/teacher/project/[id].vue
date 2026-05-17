@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-8 px-4 md:px-8 font-['Kanit',_sans-serif] text-slate-800">
+  <div class="min-h-screen bg-slate-50 py-8 px-4 md:px-8 font-['Prompt',_sans-serif] text-slate-800">
     <div class="max-w-[1200px] mx-auto w-full">
       
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -104,7 +104,7 @@
               <div class="relative z-10 flex gap-6 pb-12 mb-12 border-b border-slate-100/70 group">
                 <div class="w-14 h-14 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-md shadow-amber-200 ring-4 ring-amber-50 z-10">3</div>
                 <div class="pt-2 w-full">
-                  <h4 class="text-xl font-bold text-slate-900 mb-2">ทำเล่มปริญญานิพนธ์ (Thesis)</h4>
+                  <h4 class="text-xl font-bold text-slate-900 mb-2">ทำเล่มบัณฑิตนิพนธ์ </h4>
                   <div class="mb-5">
                     <span class="text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg text-sm font-medium">กำลังดำเนินการ</span>
                   </div>

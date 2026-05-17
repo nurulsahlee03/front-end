@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-8 px-4 md:px-8 font-['Kanit',_sans-serif] text-slate-800">
+  <div class="min-h-screen bg-slate-50 py-8 px-4 md:px-8 font-['Prompt',_sans-serif] text-slate-800">
     <div class="max-w-[1200px] mx-auto w-full">
       
       <div class="mb-10 pl-2">

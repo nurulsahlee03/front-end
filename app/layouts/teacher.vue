@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 font-['Kanit',_sans-serif]">
+  <div class="min-h-screen bg-slate-50 font-['Prompt',_sans-serif]">
     
     <nav class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center shadow-sm print:hidden sticky top-0 z-50">
       

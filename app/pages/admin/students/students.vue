@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-8 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-8 font-['PROMPT',_sans-serif]">
     
     <div class="mb-8">
       <h2 class="font-bold text-slate-900 text-2xl md:text-3xl mb-1">ข้อมูลนักศึกษา</h2>
@@ -79,23 +79,40 @@ import { ref, computed } from 'vue'
 definePageMeta({ layout: 'admin' })
 
 const searchQuery = ref('')
-const selectedYear = ref('')
 
+// 1. กำหนดค่า Default ให้เลือกเป็นปี 2568 ตอนเปิดหน้าเว็บมาเลย
+const selectedYear = ref('2568')
+
+// จำลองข้อมูลนักศึกษา (เปลี่ยนรหัสบางคนเป็นปี 68 และ 67 เพื่อเทสระบบ)
 const students = ref([
-  { id: 1, code: '6611223301', name: 'นายใจดี รักเรียน', project: 'ระบบบริหารจัดการโครงงานคอมพิวเตอร์', tel: '081-111-1111', line: 'jaidee.11', status: 'PENDING' },
-  { id: 2, code: '6611223302', name: 'นางสาวเรียนดี ขยันยิ่ง', project: 'แอปพลิเคชันจองคิวคลินิกทันตกรรม', tel: '082-222-2222', line: 'reandee_k', status: 'APPROVED' },
-  { id: 3, code: '6611223303', name: 'นายขยัน หมั่นเพียร', project: null, tel: '083-333-3333', line: 'khayan33', status: 'PENDING' },
-  { id: 4, code: '6611223304', name: 'นายมานะ อดทน', project: 'ระบบ AI ตรวจจับการสวมหมวกกันน็อค', tel: '084-444-4444', line: 'mana_man', status: 'APPROVED' },
-  { id: 5, code: '6611223305', name: 'นางสาวสมใจ นามสกุล', project: null, tel: '085-555-5555', line: 'somjai_za', status: 'PENDING' }
+  { id: 1, code: '6811223301', name: 'นายใจดี รักเรียน', project: 'ระบบบริหารจัดการโครงงานคอมพิวเตอร์', tel: '081-111-1111', line: 'jaidee.11', status: 'PENDING' },
+  { id: 2, code: '6811223302', name: 'นางสาวเรียนดี ขยันยิ่ง', project: 'แอปพลิเคชันจองคิวคลินิกทันตกรรม', tel: '082-222-2222', line: 'reandee_k', status: 'APPROVED' },
+  { id: 3, code: '6711223303', name: 'นายขยัน หมั่นเพียร', project: null, tel: '083-333-3333', line: 'khayan33', status: 'PENDING' },
+  { id: 4, code: '6711223304', name: 'นายมานะ อดทน', project: 'ระบบ AI ตรวจจับการสวมหมวกกันน็อค', tel: '084-444-4444', line: 'mana_man', status: 'APPROVED' },
+  { id: 5, code: '6611223305', name: 'นางสาวสมใจ นามสกุล', project: null, tel: '085-555-5555', line: 'somjai_za', status: 'APPROVED' }
 ])
 
-// กรองเอาเฉพาะคนที่ APPROVED มาโชว์
+// กรองเอาเฉพาะคนที่ APPROVED มาโชว์ และเพิ่มตัวกรองปีการศึกษาเข้าไปด้วย
 const approvedList = computed(() => {
   return students.value.filter(s => {
+    // เงื่อนไข 1: เช็คสถานะอนุมัติ
     const isApproved = s.status === 'APPROVED'
+    
+    // เงื่อนไข 2: เช็คการค้นหาผ่านช่อง Search (ค้นด้วยชื่อหรือรหัส)
     const search = searchQuery.value.toLowerCase()
     const matchSearch = s.name.toLowerCase().includes(search) || s.code.includes(search)
-    return isApproved && matchSearch
+    
+    // เงื่อนไข 3: เช็คปีการศึกษา (นำรหัส 2 ตัวหน้าของเด็ก มาเทียบกับ 2 ตัวหลังของ Dropdown)
+    let matchYear = true
+    if (selectedYear.value !== '') {
+      // ตัด '2568' ให้เหลือแค่ '68'
+      const yearPrefix = selectedYear.value.substring(2) 
+      // เช็คว่ารหัสนักศึกษาขึ้นต้นด้วย '68' หรือไม่
+      matchYear = s.code.startsWith(yearPrefix)
+    }
+
+    // ต้องตรงตามเงื่อนไขทั้งหมดถึงจะแสดง
+    return isApproved && matchSearch && matchYear
   })
 })
 

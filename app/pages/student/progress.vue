@@ -1,12 +1,16 @@
 <template>
-  <div class="min-h-screen py-8 px-4 font-['Prompt']">
+  <div class="min-h-screen py-8 px-4 font-['PROMPT'] bg-gray-50">
     <div class="max-w-[900px] mx-auto w-full">
       
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 hover:text-[#1a1a40] transition-colors mb-2 font-medium">
-            <i class="bi bi-arrow-left"></i> กลับหน้าหลัก
+        <div class="flex flex-col">
+          <NuxtLink 
+            to="/student" 
+            class="inline-flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-all mb-4 font-medium bg-white px-5 py-2.5 rounded-full shadow-sm border border-gray-200 w-fit text-[15px]"
+          >
+           <i class="bi bi-arrow-left"></i> กลับหน้าหลัก
           </NuxtLink>
+          
           <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40]">
             💻 รายงานความคืบหน้าโปรแกรม
           </h2>
@@ -87,38 +91,38 @@
     </div>
 
     <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div class="bg-white rounded-[20px] w-full max-w-[500px] shadow-2xl overflow-hidden animate-slide-up">
+      <div class="bg-white rounded-[24px] w-full max-w-[700px] shadow-2xl overflow-hidden animate-slide-up">
         
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="font-bold text-[18px] text-[#1a1a40]">บันทึกผลงาน (โปรแกรม)</h3>
+        <div class="px-8 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+          <h3 class="font-bold text-[20px] text-[#1a1a40]">บันทึกผลงาน (โปรแกรม)</h3>
           <button @click="closeAddModal" class="text-gray-400 hover:text-red-500 transition-colors">
-            <i class="bi bi-x-lg text-xl"></i>
+            <i class="bi bi-x-lg text-2xl"></i>
           </button>
         </div>
 
-        <form @submit.prevent="submitAdd" class="p-6 space-y-5">
-          <div class="bg-blue-50 text-blue-800 text-sm p-3 rounded-lg flex items-center gap-2 border border-blue-100">
-            <i class="bi bi-info-circle-fill"></i> ความคืบหน้าล่าสุดของคุณคือ <strong>{{ latestPercent }}%</strong>
+        <form @submit.prevent="submitAdd" class="p-8 space-y-6">
+          <div class="bg-blue-50 text-blue-800 text-[15px] p-4 rounded-xl flex items-center gap-2 border border-blue-100">
+            <i class="bi bi-info-circle-fill text-lg"></i> ความคืบหน้าล่าสุดของคุณคือ <strong>{{ latestPercent }}%</strong>
           </div>
 
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">ความคืบหน้า (%) <span class="text-red-500">*</span></label>
-            <input type="number" v-model="addForm.percent" :min="latestPercent + 1" max="100" required class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50">
-            <p class="text-xs text-gray-500 mt-1">ต้องมากกว่า {{ latestPercent }}%</p>
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">ความคืบหน้า (%) <span class="text-red-500">*</span></label>
+            <input type="number" v-model="addForm.percent" :min="latestPercent + 1" max="100" required class="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50 transition-colors">
+            <p class="text-sm text-gray-500 mt-2">ต้องมากกว่า {{ latestPercent }}%</p>
           </div>
 
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">รายละเอียดสิ่งที่ทำ <span class="text-red-500">*</span></label>
-            <textarea v-model="addForm.detail" rows="4" required placeholder="อธิบายงานที่ทำสำเร็จแล้ว..." class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50"></textarea>
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">รายละเอียดสิ่งที่ทำ <span class="text-red-500">*</span></label>
+            <textarea v-model="addForm.detail" rows="5" required placeholder="อธิบายงานที่ทำสำเร็จแล้ว..." class="w-full border border-gray-300 rounded-xl px-4 py-4 text-[15px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50 transition-colors resize-none"></textarea>
           </div>
 
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">ลิงก์งาน / ไฟล์แนบ (ถ้ามี)</label>
-            <input type="file" @change="handleAddFile" class="w-full border border-gray-300 rounded-xl px-4 py-2 bg-gray-50 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">ลิงก์งาน / ไฟล์แนบ (ถ้ามี)</label>
+            <input type="file" @change="handleAddFile" class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 text-[15px] file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer transition-all">
           </div>
 
-          <div class="pt-4">
-            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-full font-bold hover:bg-blue-700 transition-colors shadow-md">
+          <div class="pt-6 border-t border-gray-100">
+            <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl text-[16px] font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30">
               บันทึกรายงาน
             </button>
           </div>
@@ -127,35 +131,35 @@
     </div>
 
     <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div class="bg-white rounded-[20px] w-full max-w-[500px] shadow-2xl overflow-hidden animate-slide-up">
+      <div class="bg-white rounded-[24px] w-full max-w-[700px] shadow-2xl overflow-hidden animate-slide-up">
         
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="font-bold text-[18px] text-[#1a1a40]">แก้ไขรายงาน</h3>
+        <div class="px-8 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+          <h3 class="font-bold text-[20px] text-[#1a1a40]">แก้ไขรายงาน</h3>
           <button @click="closeEditModal" class="text-gray-400 hover:text-red-500 transition-colors">
-            <i class="bi bi-x-lg text-xl"></i>
+            <i class="bi bi-x-lg text-2xl"></i>
           </button>
         </div>
 
-        <form @submit.prevent="submitEdit" class="p-6 space-y-5">
+        <form @submit.prevent="submitEdit" class="p-8 space-y-6">
           
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">ความคืบหน้า (%) <span class="text-red-500">*</span></label>
-            <input type="number" v-model="editForm.percent" min="0" max="100" required class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none bg-gray-50">
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">ความคืบหน้า (%) <span class="text-red-500">*</span></label>
+            <input type="number" v-model="editForm.percent" min="0" max="100" required class="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none bg-gray-50 transition-colors">
           </div>
 
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">รายละเอียดสิ่งที่ทำ <span class="text-red-500">*</span></label>
-            <textarea v-model="editForm.detail" rows="4" required class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none bg-gray-50"></textarea>
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">รายละเอียดสิ่งที่ทำ <span class="text-red-500">*</span></label>
+            <textarea v-model="editForm.detail" rows="5" required class="w-full border border-gray-300 rounded-xl px-4 py-4 text-[15px] focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none bg-gray-50 transition-colors resize-none"></textarea>
           </div>
 
           <div>
-            <label class="block font-bold text-[#1a1a40] mb-2 text-sm">อัพโหลดไฟล์ใหม่ (ถ้าจะเปลี่ยน)</label>
-            <input type="file" @change="handleEditFile" class="w-full border border-gray-300 rounded-xl px-4 py-2 bg-gray-50 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100">
-            <p class="text-xs text-gray-500 mt-2">* หากไม่เลือก ไฟล์เดิมจะยังอยู่</p>
+            <label class="block font-bold text-[#1a1a40] mb-2 text-[15px]">อัพโหลดไฟล์ใหม่ (ถ้าจะเปลี่ยน)</label>
+            <input type="file" @change="handleEditFile" class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 text-[15px] file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-yellow-100 file:text-yellow-700 hover:file:bg-yellow-200 cursor-pointer transition-all">
+            <p class="text-sm text-gray-500 mt-2">* หากไม่เลือก ไฟล์เดิมจะยังอยู่</p>
           </div>
 
-          <div class="pt-4">
-            <button type="submit" class="w-full bg-yellow-500 text-[#1a1a40] py-3 rounded-full font-bold hover:bg-yellow-400 transition-colors shadow-md">
+          <div class="pt-6 border-t border-gray-100">
+            <button type="submit" class="w-full bg-yellow-500 text-[#1a1a40] py-4 rounded-xl text-[16px] font-bold hover:bg-yellow-400 transition-colors shadow-lg shadow-yellow-500/30">
               บันทึกการแก้ไข
             </button>
           </div>

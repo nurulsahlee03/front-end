@@ -1,63 +1,65 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-[#f8f9fa] font-['Prompt']">
+  <div class="flex flex-col min-h-screen bg-[#f8f9fa] font-['PROMPT']">
     
-    <nav class="sticky top-0 z-50 bg-[#252243] py-3 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
-      <div class="w-full xl:max-w-[1400px] mx-auto px-4 md:px-8 flex flex-wrap items-center justify-between">
+   <nav class="sticky top-0 z-50 bg-[#252243] py-3 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+      <div class="w-full px-4 md:px-8 xl:px-10 flex items-center justify-between relative">
         
-        <NuxtLink to="/student" class="text-white font-bold text-[1.4rem] flex items-center gap-2 no-underline shrink-0">
-          <i class="bi bi-mortarboard-fill"></i> Student Panel
-        </NuxtLink>
+        <div class="flex items-center xl:w-[25%] justify-start shrink-0">
+          <NuxtLink to="/student" class="text-white font-bold text-[1.4rem] flex items-center gap-2 no-underline">
+            <i class="bi bi-mortarboard-fill text-[#ffc107]"></i> Student Panel
+          </NuxtLink>
+        </div>
 
-        <button @click="isMenuOpen = !isMenuOpen" class="lg:hidden text-white text-2xl focus:outline-none">
+        <button @click="isMenuOpen = !isMenuOpen" class="xl:hidden text-white text-2xl focus:outline-none transition-transform active:scale-95">
           <i class="bi" :class="isMenuOpen ? 'bi-x-lg' : 'bi-list'"></i>
         </button>
 
-        <div :class="isMenuOpen ? 'flex' : 'hidden'" class="w-full lg:flex lg:w-auto lg:flex-grow flex-col lg:flex-row items-start lg:items-center mt-4 lg:mt-0">
+        <div :class="isMenuOpen ? 'flex' : 'hidden'" class="w-full xl:flex xl:flex-1 flex-col xl:flex-row absolute xl:static top-full left-0 bg-[#252243] xl:bg-transparent px-4 md:px-8 xl:px-0 py-6 xl:py-0 mt-3 xl:mt-0 shadow-2xl xl:shadow-none border-t border-white/10 xl:border-none gap-6 xl:gap-0 rounded-b-2xl xl:rounded-none z-40">
           
-          <ul class="flex flex-col lg:flex-row lg:mr-auto lg:ml-10 w-full lg:w-auto gap-2 lg:gap-2 mb-4 lg:mb-0">
-            <li>
-              <NuxtLink to="/procedures" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[18px] py-[8px] rounded-full transition-all duration-300 font-medium text-[0.95rem]">
-                <i class="bi bi-diagram-3-fill"></i> ขั้นตอนการทำโครงงาน
+          <ul class="flex flex-col xl:flex-row gap-2 w-full xl:w-auto xl:mx-auto xl:justify-center">
+            <li class="w-full xl:w-auto">
+              <NuxtLink to="/procedures" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[15px] py-[10px] xl:py-[8px] rounded-xl xl:rounded-full transition-all duration-300 font-medium text-[0.95rem] whitespace-nowrap w-full xl:w-auto">
+                <i class="bi bi-diagram-3-fill"></i> กระบวนการจัดทำโครงงาน
               </NuxtLink>
             </li>
 
-            <li v-if="isApproved">
-              <NuxtLink to="/student" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[18px] py-[8px] rounded-full transition-all duration-300 font-medium text-[0.95rem]">
-                <i class="bi bi-folder-fill"></i> โครงงานของฉัน
+            <li v-if="isApproved" class="w-full xl:w-auto">
+              <NuxtLink to="/student" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[15px] py-[10px] xl:py-[8px] rounded-xl xl:rounded-full transition-all duration-300 font-medium text-[0.95rem] whitespace-nowrap w-full xl:w-auto">
+                <i class="bi bi-folder-fill"></i> จัดการโครงงาน
               </NuxtLink>
             </li>
 
-            <li>
-              <NuxtLink to="/senior-projects" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[18px] py-[8px] rounded-full transition-all duration-300 font-medium text-[0.95rem]">
-                <i class="bi bi-collection-play-fill"></i> โครงงานรุ่นพี่
+            <li class="w-full xl:w-auto">
+              <NuxtLink to="/senior-projects" active-class="bg-white/20 text-white" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[15px] py-[10px] xl:py-[8px] rounded-xl xl:rounded-full transition-all duration-300 font-medium text-[0.95rem] whitespace-nowrap w-full xl:w-auto">
+                <i class="bi bi-collection-play-fill"></i> ฐานข้อมูลบัณฑิตนิพนธ์
               </NuxtLink>
             </li>
 
-            <li>
-              <a href="/thesis_manual.pdf" target="_blank" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[18px] py-[8px] rounded-full transition-all duration-300 font-medium text-[0.95rem]">
-                <i class="bi bi-book-half"></i> คู่มือทำเล่ม
+            <li class="w-full xl:w-auto">
+              <a href="/thesis_manual.pdf" target="_blank" class="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 px-[15px] py-[10px] xl:py-[8px] rounded-xl xl:rounded-full transition-all duration-300 font-medium text-[0.95rem] whitespace-nowrap w-full xl:w-auto">
+                <i class="bi bi-book-half"></i> คู่มือจัดทำบัณฑิตนิพนธ์
               </a>
             </li>
           </ul>
 
-          <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-3 w-full lg:w-auto shrink-0">
+          <div class="flex flex-col xl:flex-row items-start xl:items-center xl:justify-end gap-4 xl:gap-3 w-full xl:w-[25%] shrink-0 border-t border-white/10 xl:border-none pt-4 xl:pt-0">
             
-            <NuxtLink to="/student/profile" class="hidden lg:flex items-center gap-[10px] text-white bg-white/10 hover:bg-white/20 cursor-pointer transition-colors duration-300 pr-[18px] pl-[6px] py-[6px] rounded-full no-underline">
+            <NuxtLink to="/student/profile" class="flex items-center gap-[10px] text-white bg-white/10 hover:bg-white/20 cursor-pointer transition-colors duration-300 pr-[18px] pl-[6px] py-[8px] xl:py-[6px] rounded-full no-underline whitespace-nowrap w-max">
               <div class="w-[32px] h-[32px] bg-white text-[#1a1a40] rounded-full flex items-center justify-center font-bold text-[0.9rem]">
                 น
               </div>
-              <span class="text-[0.95rem] font-medium">นางสาวตัวอย่าง ใจดี</span>
+              <span class="text-[0.95rem] font-medium hidden xl:inline-block 2xl:inline-block">นางสาวตัวอย่าง ใจดี</span>
             </NuxtLink>
 
-            <NuxtLink to="/login" class="flex items-center gap-2 text-white border border-white/30 hover:bg-[#dc3545] hover:border-[#dc3545] px-[20px] py-[8px] rounded-full text-[0.9rem] font-medium transition-colors duration-300 w-fit">
+            <NuxtLink to="/login" class="flex items-center justify-center gap-2 text-white border border-white/30 hover:bg-[#dc3545] hover:border-[#dc3545] px-[20px] py-[10px] xl:py-[8px] rounded-full text-[0.9rem] font-medium transition-colors duration-300 w-full xl:w-fit whitespace-nowrap">
               <i class="bi bi-box-arrow-right"></i> Logout
             </NuxtLink>
+
           </div>
 
         </div>
       </div>
     </nav>
-
     <main class="flex-grow w-full py-6">
       <slot />
     </main>
@@ -79,9 +81,9 @@
             <h5 class="uppercase font-bold text-base mb-4">เมนูหลัก</h5>
             <ul class="text-sm space-y-2">
               <li><NuxtLink to="/student" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">หน้าหลัก</NuxtLink></li>
-              <li><NuxtLink to="/procedures" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">ขั้นตอนโครงงาน</NuxtLink></li>
-              <li><NuxtLink to="/senior-projects" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">โครงงานรุ่นพี่</NuxtLink></li>
-              <li><a href="/thesis_manual.pdf" target="_blank" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">คู่มือทำเล่มบัณฑิตนิพนธ์</a></li>
+              <li><NuxtLink to="/procedures" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">กระบวนการจัดทำโครงงาน</NuxtLink></li>
+              <li><NuxtLink to="/senior-projects" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">ฐานข้อมูลบัณฑิตนิพนธ์</NuxtLink></li>
+              <li><a href="/thesis_manual.pdf" target="_blank" class="text-gray-300 hover:text-[#ffc107] hover:underline transition-colors">คู่มือจัดทำบัณฑิตนิพนธ์</a></li>
             </ul>
           </div>
 
@@ -94,9 +96,7 @@
               <li class="flex items-center gap-2 text-gray-300">
                 <i class="bi bi-telephone-fill"></i> 02-xxx-xxxx
               </li>
-              <li class="text-[#ffc107] mt-3 font-medium">
-                ผู้จัดทำ: คุณหนูเต้ย (Front-end)
-              </li>
+              
             </ul>
           </div>
         </div>

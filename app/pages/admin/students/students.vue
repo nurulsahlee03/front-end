@@ -28,16 +28,15 @@
       </div>
 
       <div class="overflow-x-auto pb-4">
-        <table class="w-full text-left border-collapse min-w-[900px]">
+        <table class="w-full text-left border-collapse min-w-[800px]">
           <thead>
             <tr class="border-b-2 border-slate-100 text-slate-400 text-sm">
               <th class="pb-4 px-4 w-[80px] text-center">รูป</th>
               <th class="pb-4 font-medium">รหัสนักศึกษา</th>
               <th class="pb-4 font-medium">ชื่อ - นามสกุล</th>
-              <th class="pb-4 font-medium w-[250px]">ชื่อโครงงาน</th>
+              <th class="pb-4 font-medium w-[300px]">ชื่อโครงงาน</th>
               <th class="pb-4 font-medium">เบอร์โทรศัพท์</th>
               <th class="pb-4 font-medium">LINE ID</th>
-              <th class="pb-4 font-medium text-center">สถานะ</th>
               <th class="pb-4 font-medium text-center">จัดการ</th>
             </tr>
           </thead>
@@ -54,9 +53,6 @@
               </td>
               <td class="py-4 text-[15px] text-slate-600">{{ student.tel || '-' }}</td>
               <td class="py-4 text-[15px] text-indigo-600 font-medium">{{ student.line || '-' }}</td>
-              <td class="py-4 text-center">
-                <span class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-3 py-1 rounded-full text-[11px] font-bold">อนุมัติแล้ว</span>
-              </td>
               <td class="py-4 text-center">
                 <button @click="deleteStudent(student.id, student.name)" class="text-slate-300 hover:text-rose-500 transition-colors p-2"><i class="bi bi-trash text-lg"></i></button>
               </td>
@@ -95,7 +91,7 @@ const students = ref([
 // กรองเอาเฉพาะคนที่ APPROVED มาโชว์ และเพิ่มตัวกรองปีการศึกษาเข้าไปด้วย
 const approvedList = computed(() => {
   return students.value.filter(s => {
-    // เงื่อนไข 1: เช็คสถานะอนุมัติ
+    // เงื่อนไข 1: เช็คสถานะอนุมัติ (ส่วนการกรองข้อมูลยังคงไว้นะครับ เพื่อให้ตารางดึงมาเฉพาะคนผ่านแล้ว)
     const isApproved = s.status === 'APPROVED'
     
     // เงื่อนไข 2: เช็คการค้นหาผ่านช่อง Search (ค้นด้วยชื่อหรือรหัส)
